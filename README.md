@@ -102,7 +102,7 @@ d = 3, 5, 9 and 11.
 Primes such that the product of digits is a prime. First multiplicative prime are: 2, 3, 5, 7, 13, 17, 31, 71, 113, 131, 151, 211, 311, 1117, 1151, 1171, 1511, 2111, 11113, 11117.
 38. Niven Prime
 Prime number that are divisible by the sum of their digits. First are 2, 3, 7.
-39.p2 +q2 =P2 +Q2
+39. p2+q2=P2+Q2
 p and P is a reversible pair; q and Q is a reversible par; p, q, P and Q are primes.
 p = 102061,P = 160201, q = 335113, Q = 311533, 1020612 + 3351132 = 1602012 + 3115332
 40. Palindromic Prime

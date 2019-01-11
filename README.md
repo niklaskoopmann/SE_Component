@@ -1,6 +1,6 @@
 # SE_Component
 
-See How To [a relative link](/lib/howTo.md)
+See How To [here](/lib/howTo.md)
 
 Komponenten (KMP)
 Aufgaben

@@ -1,5 +1,7 @@
 # SE_Component
 
+See How To [a relative link](/lib/howTo.md)
+
 Komponenten (KMP)
 Aufgaben
 1. 102

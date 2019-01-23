@@ -12,6 +12,11 @@ public class EnlightenedNumbers {
         port = new Port();
     }
 
+    // todo: hinzufügen bei allen anderen Komponenten
+    public static EnlightenedNumbers getInstance() {
+        return instance;
+    }
+
     public class Port implements IEnlightenedNumbers {
         private Method[] methods = getClass().getMethods();
 
@@ -31,9 +36,9 @@ public class EnlightenedNumbers {
     public ArrayList<BigInteger> InnerExecute(BigInteger rangeFrom, BigInteger rangeTo) {
         ArrayList<BigInteger> enlightenedNumbers = new ArrayList<>();
         BigInteger i = rangeFrom;
-        while(i != rangeTo.add(new BigInteger("1"))){
-            ArrayList<BigInteger> primeFactors = primeFactors(new BigInteger("24"));
-            if ((checkFirstDigits(primeFactors,i)) != null){
+        while(i.compareTo(rangeTo) < 0){
+            ArrayList<BigInteger> primeFactors = tdFactors(i);
+            if ((checkFirstDigits(primeFactors,i)) != null && (checkFirstDigits(primeFactors,i)).compareTo(new BigInteger("8")) > 0){
                 enlightenedNumbers.add(checkFirstDigits(primeFactors, i));
             }
             // i++
@@ -42,35 +47,87 @@ public class EnlightenedNumbers {
         return enlightenedNumbers;
     }
 
-    // get prime factors
-    private ArrayList<BigInteger> primeFactors(BigInteger number){
+// get prime factors -- works
+    public static ArrayList<BigInteger> tdFactors(BigInteger n)
+    {
+        BigInteger two = BigInteger.valueOf(2);
+        ArrayList<BigInteger> fs = new ArrayList<>();
 
-
-        ArrayList<BigInteger> primeFactors = new ArrayList<>();
-        BigInteger i = new BigInteger("2");
-
-        while(BigInteger.ZERO.equals(number.mod(i))){
-            number = number.divide(i);
-            if (!primeFactors.contains(number)) {
-                primeFactors.add(number);
+        while (n.mod(two).equals(BigInteger.ZERO))
+        {
+            if(!fs.contains(two)) {
+                fs.add(two);
             }
-            i = i.add(new BigInteger("1"));
+            n = n.divide(two);
         }
 
-        return primeFactors;
+        if (n.compareTo(BigInteger.ONE) > 0)
+        {
+            BigInteger f = BigInteger.valueOf(3);
+            while (f.multiply(f).compareTo(n) <= 0)
+            {
+                if (n.mod(f).equals(BigInteger.ZERO))
+                {
+                    if (!fs.contains(f)) {
+                        fs.add(f);
+                    }
+                    n = n.divide(f);
+                }
+                else
+                {
+                    f = f.add(two);
+                }
+            }
+            if (!fs.contains(n)) {
+                fs.add(n);
+            }
+        }
+        return fs;
     }
+
+
+// static entfernt
+    // number n is enlightened if it begins with the concatenation of its distinct prime factors
     private BigInteger checkFirstDigits(ArrayList<BigInteger> primeFactors, BigInteger initialValue){
         // for each prime factor
-        for (BigInteger temp : primeFactors){
-            ArrayList<String>digitList = getDigits(initialValue);
-            for (String digit : digitList){
-               if (temp != (new BigInteger(digit))){
-                   // one prime factor not part of initial value
-                   return null;
-               }
+        ArrayList<String> digitList = getDigits(initialValue);
+        int index = 0;
+
+
+        for (BigInteger factor : primeFactors) {
+            if (factor.toString().length() == 1) {
+                if ((index < 2) && (factor.equals(new BigInteger(digitList.get(index))))) {
+                    return null;
+                }
+                index++;
+            } else {
+                String number = "";
+                for (int i = index; i <= factor.toString().length(); i++) {
+                    number += digitList.get(i);
+                }
+                if ((index < 2) && (factor.equals(new BigInteger(number)))) {
+                    return null;
+                }
+                index += factor.toString().length();
             }
         }
+
         return initialValue;
+        /*// for each prime factor
+        for (BigInteger step : primeFactors) {
+
+            // todo: change this for e.g. 2176
+            if ((index < 2) && (step.equals(new BigInteger(digitList.get(index)))))
+            {
+                return null;
+            }
+
+           // if(step.compareTo(new BigInteger(digitList.get(index))) != 0) {
+           //     return null;
+           // }
+            index++;
+        }
+        return initialValue;*/
     }
 
 
@@ -102,5 +159,4 @@ public class EnlightenedNumbers {
         }
         return true;
     }
-
 }

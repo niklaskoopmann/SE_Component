@@ -10,6 +10,10 @@ public class PermutablePrime {
         port = new Port();
     }
 
+    public static PermutablePrime getInstance() {
+        return instance;
+    }
+
     public class Port implements IPermutablePrime {
         private Method[] methods = getClass().getMethods();
 
@@ -17,27 +21,14 @@ public class PermutablePrime {
         public ArrayList<BigInteger> execute(BigInteger rangeFrom, BigInteger rangeTo) {
             return InnerExecute(rangeFrom,rangeTo);
         }
-
-        public void listMethods() {
-            System.out.println("--- public methods for " + getClass().getName());
-            for (int i = 0; i < methods.length; i++)
-                if (!methods[i].toString().contains("Object") && !methods[i].toString().contains("list"))
-                    System.out.println(methods[i]);
-            System.out.println("---");
-        }
     }
-// todo: hier code
-    // todo: hier testen
+
     public ArrayList<BigInteger> InnerExecute(BigInteger rangeFrom, BigInteger rangeTo) {
         ArrayList<BigInteger> permutablePrime = new ArrayList<>();
-        BigInteger i = rangeFrom;
-        while(i != rangeTo.add(new BigInteger("1"))){
-            // check if prime
-            if (returnPrime(i) && returnPrime(reverseNumber(i))){
-                permutablePrime.add(i);
+        for(BigInteger f = rangeFrom; f.compareTo(rangeTo)<=0;f=f.add(BigInteger.ONE)){
+            if (returnPrime(f) && returnPrime(reverseNumber(f))){
+                permutablePrime.add(f);
             }
-            // i++
-            i = i.add(new BigInteger("1"));
         }
         return permutablePrime;
     }
@@ -59,17 +50,11 @@ public class PermutablePrime {
         }
         return true;
     }
-    // todo: test
-    private BigInteger reverseNumber (BigInteger number){
-        BigInteger reversedNum = new BigInteger("0");
-        BigInteger input = number;
 
-        while (input != new BigInteger("0")) {
-            reversedNum = reversedNum.multiply(new BigInteger("10")).add(input.mod(new BigInteger("10")));
-            input = input.divide(new BigInteger("10"));
-        }
-
-        return (BigInteger) reversedNum;
+    private BigInteger reverseNumber (BigInteger toReverse){
+        String reverseString = new StringBuilder(toReverse.toString()).reverse().toString();
+        BigInteger output = new BigInteger(reverseString);
+        return output;
     }
 
 }

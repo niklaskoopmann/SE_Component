@@ -6,6 +6,10 @@ public class PalindromicPrime {
     private static PalindromicPrime instance = new PalindromicPrime();
     public Port port;
 
+    public static PalindromicPrime getInstance() {
+        return instance;
+    }
+
     private PalindromicPrime() {
         port = new Port();
     }
@@ -17,29 +21,28 @@ public class PalindromicPrime {
         public ArrayList<BigInteger> execute(BigInteger rangeFrom, BigInteger rangeTo) {
             return InnerExecute(rangeFrom,rangeTo);
         }
-
-        public void listMethods() {
-            System.out.println("--- public methods for " + getClass().getName());
-            for (int i = 0; i < methods.length; i++)
-                if (!methods[i].toString().contains("Object") && !methods[i].toString().contains("list"))
-                    System.out.println(methods[i]);
-            System.out.println("---");
-        }
     }
 
     public ArrayList<BigInteger> InnerExecute(BigInteger rangeFrom, BigInteger rangeTo) {
         ArrayList<BigInteger> palindromicPrime = new ArrayList<>();
-        BigInteger i = rangeFrom;
-        while(i != rangeTo.add(new BigInteger("1"))){
-
-            if (returnPrime(i) && getPalindrome(i) != null)
+        for (BigInteger f = rangeFrom; f.compareTo(rangeTo)<=0;f.add(BigInteger.ONE)){
+            f= getNextPrime(f);
+            if (f.compareTo(getPalindrome(f))==0 && returnPrime(getPalindrome(f)))
             {
-                palindromicPrime.add(i);
+                palindromicPrime.add(f);
             }
-            // i++
-            i = i.add(new BigInteger("1"));
         }
-        return null;
+        return palindromicPrime;
+    }
+
+    public BigInteger getNextPrime(BigInteger number){
+        if(number.intValue() < 2) return BigInteger.TWO;
+        if(number.mod(BigInteger.TWO).equals(BigInteger.ZERO)) number = number.subtract(BigInteger.ONE);
+        do{
+            number = number.add(BigInteger.TWO);
+        }while(!returnPrime(number));
+
+        return number;
     }
 
     public boolean returnPrime(BigInteger number) {
@@ -61,22 +64,9 @@ public class PalindromicPrime {
     }
 
     public static BigInteger getPalindrome(BigInteger number) {
-        BigInteger palindrome = number;
-        BigInteger reverse = new BigInteger("0");
-
-        // Compute the reverse
-        while (palindrome != new BigInteger("0")) {
-            //int remainder = palindrome % 10;
-            BigInteger remainder = palindrome.mod(new BigInteger("10"));
-            reverse = reverse.multiply(new BigInteger("10")).add(remainder);
-            palindrome = palindrome.divide(new BigInteger("10"));
-        }
-
-        // The integer is palindrome if integer and reverse are equal
-        if(number == reverse){
-            return number;
-        }
-        return null;
+        String reverseString = new StringBuilder(number.toString()).reverse().toString();
+        BigInteger palindrome = new BigInteger(reverseString);
+        return palindrome;
     }
 
 }

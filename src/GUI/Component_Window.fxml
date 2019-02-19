@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: grey;" VBox.vgrow="ALWAYS">
+         <children>
+            <Pane layoutX="10.0" layoutY="-7.0" prefHeight="100.0" prefWidth="620.0" style="-fx-background-color: darkblue;">
+               <children>
+                  <Button layoutX="14.0" fx:id="loadButton" layoutY="37.0" mnemonicParsing="false" text="Load" />
+                  <TextField fx:id="windowSuccessStatus" alignment="CENTER" editable="false" layoutX="69.0" layoutY="20.0" prefHeight="60.0" prefWidth="160.0"/>
+                  <Button fx:id="executeButton" layoutX="538.0" layoutY="37.0" mnemonicParsing="false" text="Execute" />
+                  <Spinner min="1" max="2147483647" fx:id="windowSpinnerMax" layoutX="410.0" layoutY="37.0" prefHeight="27.0" prefWidth="125.0" editable="true"/>
+                  <Spinner min="1" max="2147483647" fx:id="windowSpinnerMin" layoutX="280.0" layoutY="37.0" prefHeight="27.0" prefWidth="125.0" editable="true"/>
+                  <Text fill="WHITE" layoutX="234.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Range:" />
+               </children>
+            </Pane>
+            <TextArea editable="false" fx:id="windowOutputTextField" layoutX="10.0" layoutY="103.0" prefHeight="200.0" prefWidth="620.0" wrapText="true" style="-fx-background-color: white;" />
+            <TextField fx:id="windowCLIInputTextField" layoutX="10.0" layoutY="314.0" prefHeight="100.0" prefWidth="620.0" alignment="TOP_LEFT" style="-fx-background-color: white; -fx-font-family: Courier" />
+         </children>
+    </AnchorPane>
+  </children>
+</VBox>
